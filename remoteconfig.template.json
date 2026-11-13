@@ -1,0 +1,8 @@
+{
+  "parameters": {
+    "compile_model": { "defaultValue": { "value": "gemini-3.5-flash" }, "description": "Cloud model that compiles manuals into procedure packs" },
+    "cloud_model": { "defaultValue": { "value": "gemini-3.5-flash-lite" }, "description": "Cloud fallback / escalation model" },
+    "allow_cloud_escalation": { "defaultValue": { "value": "true" }, "valueType": "BOOLEAN", "description": "Kill switch for cloud escalations" },
+    "max_escalation_attempts": { "defaultValue": { "value": "3" }, "valueType": "NUMBER", "description": "Retries before an escalation is marked failed" }
+  }
+}

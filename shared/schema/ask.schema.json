@@ -1,0 +1,10 @@
+{
+  "$comment": "On-device output: answer to a technician's clarification question, restricted to the current step card.",
+  "type": "object",
+  "properties": {
+    "answerable": { "type": "boolean" },
+    "answer": { "type": "string" },
+    "packFactsUsed": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["answerable", "answer", "packFactsUsed"]
+}

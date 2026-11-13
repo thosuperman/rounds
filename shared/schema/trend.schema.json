@@ -1,0 +1,20 @@
+{
+  "$comment": "Cloud output: recurring problems across shifts, computed from deterministic issue history.",
+  "type": "object",
+  "properties": {
+    "summary": { "type": "string" },
+    "recurring": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "issueId": { "type": "string" },
+          "pattern": { "type": "string" },
+          "recommendation": { "type": "string" }
+        },
+        "required": ["issueId", "pattern", "recommendation"]
+      }
+    }
+  },
+  "required": ["summary", "recurring"]
+}

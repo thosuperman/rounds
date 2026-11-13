@@ -1,0 +1,37 @@
+{
+  "quota": 9216,
+  "tokensCardPrompt": 338,
+  "tokensManualPrompt": 4744,
+  "tokensManualOnly": 4407,
+  "card": {
+    "ms": 39772,
+    "src": "on_device",
+    "json": "{\"summary\": \"Vibration velocity at V1 is 5.2 mm/s, which is higher than the expected limit of 4.5 mm/s and accompanied by unusual noise from the drive end bearing.\", \"category\": \"noise\", \"concerns\": [\"higher than expected vibration velocity\"], \"missingInfo\": [], \"followUpQuestion\": \"\", \"beyondPack\": false, \"confidence\": \"medium\"}"
+  },
+  "manual": {
+    "ms": 109426,
+    "src": "on_device",
+    "json": "{\"summary\": \"Loud squeal detected near the drive end bearing, louder than the previous shift.\", \"category\": \"noise\", \"concerns\": [], \"missingInfo\": [], \"followUpQuestion\": \"None\", \"beyondPack\": false, \"confidence\": \"medium\"}"
+  },
+  "card2": {
+    "ms": 49424,
+    "src": "on_device",
+    "json": "{\"summary\": \"Vibration velocity at V1 was measured to be 5.2 mm/s, exceeding 4.5 mm/s. There's unusual noise noticed near the drive end bearing.\", \"category\": \"noise\", \"concerns\": [\"> 4.5 mm/s\", \"louder than last shift\"], \"missingInfo\": [], \"followUpQuestion\": \"What is the nature of the unusual noise?\", \"beyondPack\": false, \"confidence\": \"medium\"}"
+  },
+  "manual2": {
+    "ms": 112316,
+    "src": "on_device",
+    "json": "{\"summary\": \"Drive end bearing exhibited a squealing noise louder than the previous shift's observation.\", \"category\": \"noise\", \"concerns\": [], \"missingInfo\": [], \"followUpQuestion\": \"\", \"beyondPack\": false, \"confidence\": \"medium\"}"
+  },
+  "card3": {
+    "ms": 34166,
+    "src": "on_device",
+    "json": "{\"summary\": \"Vibration velocity at bearing housing V1 is 5.2 mm/s, exceeding the expected value of 4.5 mm/s and accompanied by unusual squeal sounds.\", \"category\": \"noise\", \"concerns\": [\"unusual noise description\"], \"missingInfo\": [], \"followUpQuestion\": \"What type of squeal is being described?\", \"beyondPack\": false, \"confidence\": \"medium\"}"
+  },
+  "manual3": {
+    "ms": 139961,
+    "src": "on_device",
+    "json": "{\"summary\": \"Technician observed a squeal near the drive end bearing during the inspection.\", \"category\": \"noise\", \"concerns\": [], \"missingInfo\": [], \"followUpQuestion\": \"\", \"beyondPack\": false, \"confidence\": \"medium\"}"
+  },
+  "done": true
+}

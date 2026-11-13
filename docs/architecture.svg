@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" font-family="Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <title>Rounds architecture</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#33424f"/>
+    </marker>
+    <marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0b6bcb"/>
+    </marker>
+    <marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6e40c9"/>
+    </marker>
+    <style>
+      .t{font-size:15px;fill:#16191d;font-weight:600}
+      .s{font-size:12.5px;fill:#5d6670}
+      .h{font-size:13px;font-weight:700;letter-spacing:.06em;fill:#5d6670}
+      .box{fill:#fff;stroke:#c9cec6;stroke-width:1.2}
+      .rule{fill:#e6ecf0;stroke:#33424f;stroke-width:1.4}
+      .cloud{fill:#e1efff;stroke:#0b6bcb;stroke-width:1.4}
+      .dev{fill:#efe8ff;stroke:#6e40c9;stroke-width:1.4}
+      .human{fill:#fff4d1;stroke:#9a6700;stroke-width:1.4}
+      .ln{stroke:#33424f;stroke-width:1.6;fill:none}
+      .lc{stroke:#0b6bcb;stroke-width:1.8;fill:none}
+      .ld{stroke:#6e40c9;stroke-width:1.8;fill:none}
+      .dash{stroke-dasharray:6 5}
+      .lbl{paint-order:stroke;stroke:#f4f5f2;stroke-width:5px;stroke-linejoin:round;font-weight:600}
+    </style>
+  </defs>
+  <rect width="1280" height="760" fill="#f4f5f2"/>
+  <text x="40" y="44" font-size="24" font-weight="700" fill="#16191d">Rounds: hybrid AI for offline inspection rounds</text>
+  <text x="40" y="68" class="s">Every generative call goes through Firebase AI Logic. Measurement limits and safety decisions are deterministic and supervisor-approved.</text>
+
+  <!-- column labels -->
+  <text x="40" y="112" class="h">SUPERVISOR (WEB, ONLINE)</text>
+  <text x="470" y="112" class="h">FIREBASE (CLOUD)</text>
+  <text x="880" y="112" class="h">TECHNICIAN DEVICE (CHROME PWA, OFFLINE-FIRST)</text>
+
+  <!-- supervisor -->
+  <rect x="40" y="126" width="370" height="64" rx="12" class="box"/>
+  <text x="58" y="152" class="t">Equipment manual (.md / .txt)</text>
+  <text x="58" y="173" class="s">Source text is hashed (sha256) and stored with the pack</text>
+
+  <rect x="40" y="226" width="370" height="96" rx="12" class="rule"/>
+  <text x="58" y="252" class="t">Deterministic pack verifier</text>
+  <text x="58" y="273" class="s">Each limit, safety item and escalation rule must quote</text>
+  <text x="58" y="290" class="s">the manual verbatim; the value and unit must be in the quote.</text>
+  <text x="58" y="307" class="s">Paraphrases are flagged. Step cards fit ~900 tokens.</text>
+
+  <rect x="40" y="358" width="370" height="96" rx="12" class="human"/>
+  <text x="58" y="384" class="t">Supervisor approves item by item</text>
+  <text x="58" y="405" class="s">Approve or exclude each safety/escalation item.</text>
+  <text x="58" y="422" class="s">Limits can only be approved (fix = recompile).</text>
+  <text x="58" y="439" class="s">Publish button stays locked until every item is handled.</text>
+
+  <rect x="40" y="490" width="370" height="78" rx="12" class="cloud"/>
+  <text x="58" y="516" class="t">Trend analysis across shifts</text>
+  <text x="58" y="537" class="s">ONLY_IN_CLOUD · output checked for invented numbers</text>
+  <text x="58" y="554" class="s">and unknown issue ids</text>
+
+  <!-- cloud -->
+  <rect x="470" y="126" width="350" height="150" rx="12" class="cloud"/>
+  <text x="488" y="152" class="t">Firebase AI Logic → Gemini (cloud)</text>
+  <text x="488" y="175" class="s">Compile manual: ONLY_IN_CLOUD, gemini-3.5-flash</text>
+  <text x="488" y="194" class="s">Review / trends: ONLY_IN_CLOUD, gemini-3.5-flash-lite</text>
+  <text x="488" y="213" class="s">Fallback for device tasks when no local model</text>
+  <text x="488" y="236" class="s">Same JSON Schema as on-device (responseJsonSchema)</text>
+  <text x="488" y="255" class="s">Models set by Remote Config</text>
+
+  <rect x="470" y="312" width="350" height="142" rx="12" class="box"/>
+  <text x="488" y="338" class="t">Cloud Firestore + security rules</text>
+  <text x="488" y="361" class="s">Packs created as drafts; approved packs immutable</text>
+  <text x="488" y="380" class="s">Only the assignee writes readings, as themselves</text>
+  <text x="488" y="399" class="s">Escalations need consent; payload immutable;</text>
+  <text x="488" y="418" class="s">done/failed can never be re-queued</text>
+  <text x="488" y="437" class="s">Inference ledger is append-only</text>
+
+  <rect x="470" y="490" width="350" height="78" rx="12" class="box"/>
+  <text x="488" y="516" class="t">App Check (enforced) + Anonymous Auth</text>
+  <text x="488" y="537" class="s">AI Logic and Firestore reject calls without a valid</text>
+  <text x="488" y="554" class="s">App Check token (verified: HTTP 401)</text>
+
+  <!-- device -->
+  <rect x="880" y="126" width="360" height="64" rx="12" class="box"/>
+  <text x="898" y="152" class="t">Approved pack cached on device</text>
+  <text x="898" y="173" class="s">Excluded items stripped · Firestore offline cache</text>
+
+  <rect x="880" y="226" width="360" height="96" rx="12" class="rule"/>
+  <text x="898" y="252" class="t">Rule engine (no AI)</text>
+  <text x="898" y="273" class="s">Parses the reading (units, comma decimals), compares</text>
+  <text x="898" y="290" class="s">with approved limits → OK / Attention / ALARM + quote.</text>
+  <text x="898" y="307" class="s">Alarm shows the approved escalation rules.</text>
+
+  <rect x="880" y="358" width="360" height="116" rx="12" class="dev"/>
+  <text x="898" y="384" class="t">Firebase AI Logic: PREFER_ON_DEVICE</text>
+  <text x="898" y="405" class="s">Chrome built-in Gemini Nano (Prompt API)</text>
+  <text x="898" y="424" class="s">Check a note · ask about the step · handover summary</text>
+  <text x="898" y="443" class="s">JSON Schema responseConstraint + output guards</text>
+  <text x="898" y="462" class="s">Source label from response.inferenceSource</text>
+
+  <rect x="880" y="510" width="360" height="96" rx="12" class="box"/>
+  <text x="898" y="536" class="t">Escalation queue (app-level)</text>
+  <text x="898" y="557" class="s">Triggered by invalid output, beyond-pack, no local</text>
+  <text x="898" y="574" class="s">model or user request · consent dialog shows payload ·</text>
+  <text x="898" y="591" class="s">idempotent id · lease · retries · runs when online</text>
+
+  <rect x="880" y="642" width="360" height="78" rx="12" class="rule"/>
+  <text x="898" y="668" class="t">Shift handover</text>
+  <text x="898" y="689" class="s">Facts table built by code (authoritative); AI prose kept</text>
+  <text x="898" y="706" class="s">only if it adds no numbers and covers every open issue</text>
+
+  <!-- arrows supervisor -->
+  <path class="ln" d="M410 158 C 440 158, 440 175, 468 175" marker-end="url(#a)"/>
+  <path class="lc" d="M470 250 C 440 250, 440 274, 412 274" marker-end="url(#c)"/>
+  <text x="416" y="300" class="lbl" font-size="11.5" fill="#0b6bcb">draft</text>
+  <path class="ln" d="M225 322 L225 356" marker-end="url(#a)"/>
+  <path class="ln" d="M410 400 C 440 400, 440 380, 468 380" marker-end="url(#a)"/>
+  <text x="414" y="417" class="lbl" font-size="11.5" fill="#33424f">publish</text>
+  <path class="lc" d="M412 529 C 440 529, 440 250, 468 230" marker-end="url(#c)"/>
+
+  <!-- arrows to device -->
+  <path class="ln" d="M820 340 C 850 340, 850 160, 878 160" marker-end="url(#a)"/>
+  <text x="824" y="330" class="lbl" font-size="11.5" fill="#33424f">sync</text>
+  <path class="ln" d="M1060 190 L1060 224" marker-end="url(#a)"/>
+  <path class="ln" d="M1060 322 L1060 356" marker-end="url(#a)"/>
+  <path class="ld" d="M1060 474 L1060 508" marker-end="url(#d)"/>
+  <path class="lc dash" d="M880 558 C 850 558, 850 230, 822 215" marker-end="url(#c)"/>
+  <text x="826" y="600" class="lbl" font-size="11.5" fill="#0b6bcb">cloud review</text>
+  <text x="826" y="614" class="lbl" font-size="11.5" fill="#0b6bcb">when online</text>
+  <path class="lc dash" d="M880 420 C 860 420, 860 205, 822 200" marker-end="url(#c)"/>
+  <text x="826" y="470" class="lbl" font-size="11.5" fill="#0b6bcb">SDK fallback</text>
+  <path class="ln" d="M1060 606 L1060 640" marker-end="url(#a)"/>
+
+  <!-- legend -->
+  <rect x="40" y="620" width="16" height="16" rx="4" class="rule"/><text x="64" y="633" class="s">Deterministic (no AI)</text>
+  <rect x="40" y="648" width="16" height="16" rx="4" class="dev"/><text x="64" y="661" class="s">On-device AI</text>
+  <rect x="40" y="676" width="16" height="16" rx="4" class="cloud"/><text x="64" y="689" class="s">Cloud AI</text>
+  <rect x="220" y="620" width="16" height="16" rx="4" class="human"/><text x="244" y="633" class="s">Human approval</text>
+  <text x="220" y="661" class="s">Demo uses a fictional pump manual.</text>
+  <text x="220" y="680" class="s">Not certified for industrial safety use.</text>
+</svg>

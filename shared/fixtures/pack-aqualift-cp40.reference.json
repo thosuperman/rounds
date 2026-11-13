@@ -1,0 +1,62 @@
+{
+  "$comment": "Hand-written reference pack for tests ONLY (shared by Web and iOS test suites). The app never uses this as a substitute for a real cloud compilation.",
+  "equipment": { "name": "AquaLift Centrifugal Process Water Pump", "model": "CP-40" },
+  "title": "CP-40 daily inspection round",
+  "sourceRevision": "C",
+  "generalSafety": [
+    { "text": "Wear hearing protection in the pump room.", "sourceQuote": "Wear hearing protection inside the pump room." }
+  ],
+  "steps": [
+    {
+      "id": "s1",
+      "title": "Discharge pressure",
+      "instruction": "Read discharge pressure gauge PG-101 on the outlet pipe.",
+      "section": "2.1",
+      "measurement": { "key": "discharge_pressure", "label": "Discharge pressure", "unit": "bar" },
+      "thresholds": [
+        { "level": "attention", "comparator": "lt", "value": 3.0, "sourceQuote": "The normal operating range for discharge pressure is 3.0 to 4.5 bar." },
+        { "level": "attention", "comparator": "gt", "value": 4.5, "sourceQuote": "The normal operating range for discharge pressure is 3.0 to 4.5 bar." },
+        { "level": "alarm", "comparator": "lt", "value": 2.5, "sourceQuote": "A reading below 2.5 bar or above 5.0 bar is an alarm condition: report it to the supervisor immediately." },
+        { "level": "alarm", "comparator": "gt", "value": 5.0, "sourceQuote": "A reading below 2.5 bar or above 5.0 bar is an alarm condition: report it to the supervisor immediately." }
+      ],
+      "expectedObservations": ["steady gauge needle", "no rattling noise"],
+      "observationChecklist": ["noise type", "gauge needle steady or fluctuating"],
+      "safety": [],
+      "escalation": [
+        { "condition": "Pressure alarm: report to supervisor immediately.", "sourceQuote": "A reading below 2.5 bar or above 5.0 bar is an alarm condition: report it to the supervisor immediately." }
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "Bearing temperature",
+      "instruction": "Measure drive-end bearing housing temperature at marker T1 with the IR thermometer.",
+      "section": "2.2",
+      "measurement": { "key": "bearing_temp", "label": "Bearing temperature", "unit": "degC" },
+      "thresholds": [
+        { "level": "attention", "comparator": "gt", "value": 70, "sourceQuote": "The bearing temperature should not exceed 70 °C during normal operation." },
+        { "level": "alarm", "comparator": "gte", "value": 80, "sourceQuote": "A bearing temperature of 80 °C or higher is an alarm condition." }
+      ],
+      "expectedObservations": ["temperature stable across shifts"],
+      "observationChecklist": ["trend versus last shift", "smell or discolouration"],
+      "safety": [
+        { "text": "Do not touch the housing when in alarm.", "sourceQuote": "Do not touch the housing." }
+      ],
+      "escalation": []
+    },
+    {
+      "id": "s3",
+      "title": "Vibration",
+      "instruction": "Measure vibration velocity at marker V1 on the bearing housing with the vibration meter.",
+      "section": "2.3",
+      "measurement": { "key": "vibration", "label": "Vibration velocity", "unit": "mm/s" },
+      "thresholds": [
+        { "level": "attention", "comparator": "gt", "value": 4.5, "sourceQuote": "Vibration velocity up to 4.5 mm/s is acceptable." },
+        { "level": "alarm", "comparator": "gte", "value": 7.1, "sourceQuote": "Vibration of 7.1 mm/s or higher is an alarm condition." }
+      ],
+      "expectedObservations": ["smooth running sound"],
+      "observationChecklist": ["noise type", "location of noise", "compared with last shift"],
+      "safety": [],
+      "escalation": []
+    }
+  ]
+}

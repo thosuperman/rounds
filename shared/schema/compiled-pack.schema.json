@@ -1,0 +1,87 @@
+{
+  "$comment": "Output schema for the cloud procedure compiler. Shared by the cloud responseJsonSchema, the on-device responseConstraint and the validator. Every threshold, safety item and escalation rule must carry a verbatim quote from the source manual so it can be checked deterministically.",
+  "type": "object",
+  "properties": {
+    "equipment": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "model": { "type": "string" }
+      },
+      "required": ["name", "model"]
+    },
+    "title": { "type": "string" },
+    "sourceRevision": { "type": "string" },
+    "generalSafety": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" },
+          "sourceQuote": { "type": "string" }
+        },
+        "required": ["text", "sourceQuote"]
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "instruction": { "type": "string" },
+          "section": { "type": "string" },
+          "measurement": {
+            "type": "object",
+            "properties": {
+              "key": { "type": "string" },
+              "label": { "type": "string" },
+              "unit": { "type": "string", "enum": ["bar", "kPa", "psi", "degC", "degF", "mm/s", "none"] }
+            },
+            "required": ["key", "label", "unit"]
+          },
+          "thresholds": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "level": { "type": "string", "enum": ["attention", "alarm"] },
+                "comparator": { "type": "string", "enum": ["lt", "lte", "gt", "gte"] },
+                "value": { "type": "number" },
+                "sourceQuote": { "type": "string" }
+              },
+              "required": ["level", "comparator", "value", "sourceQuote"]
+            }
+          },
+          "expectedObservations": { "type": "array", "items": { "type": "string" } },
+          "observationChecklist": { "type": "array", "items": { "type": "string" } },
+          "safety": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "sourceQuote": { "type": "string" }
+              },
+              "required": ["text", "sourceQuote"]
+            }
+          },
+          "escalation": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "condition": { "type": "string" },
+                "sourceQuote": { "type": "string" }
+              },
+              "required": ["condition", "sourceQuote"]
+            }
+          }
+        },
+        "required": ["id", "title", "instruction", "section", "thresholds", "expectedObservations", "observationChecklist", "safety", "escalation"]
+      }
+    }
+  },
+  "required": ["equipment", "title", "sourceRevision", "generalSafety", "steps"]
+}

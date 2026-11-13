@@ -1,0 +1,14 @@
+{
+  "$comment": "On-device output: interpretation of a short technician observation for one step. Kept small to fit on-device output limits (~256 tokens).",
+  "type": "object",
+  "properties": {
+    "summary": { "type": "string" },
+    "category": { "type": "string", "enum": ["normal", "noise", "leak", "heat", "smell", "visual", "other"] },
+    "concerns": { "type": "array", "items": { "type": "string" } },
+    "missingInfo": { "type": "array", "items": { "type": "string" } },
+    "followUpQuestion": { "type": "string" },
+    "beyondPack": { "type": "boolean" },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+  },
+  "required": ["summary", "category", "concerns", "missingInfo", "followUpQuestion", "beyondPack", "confidence"]
+}

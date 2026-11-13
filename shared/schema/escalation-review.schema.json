@@ -1,0 +1,22 @@
+{
+  "$comment": "Cloud output for an escalated issue. Advisory only: it can never change approved thresholds or procedure steps.",
+  "type": "object",
+  "properties": {
+    "assessment": { "type": "string" },
+    "possibleCauses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cause": { "type": "string" },
+          "basis": { "type": "string" }
+        },
+        "required": ["cause", "basis"]
+      }
+    },
+    "suggestedChecks": { "type": "array", "items": { "type": "string" } },
+    "urgency": { "type": "string", "enum": ["routine", "soon", "immediate"] },
+    "packSectionsCited": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["assessment", "possibleCauses", "suggestedChecks", "urgency", "packSectionsCited"]
+}

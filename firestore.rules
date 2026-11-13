@@ -1,0 +1,114 @@
+rules_version = '2';
+
+// Rounds — Firestore security rules.
+// Every user works inside workspaces/{uid}. Roles live on the workspace document.
+// Key guarantees:
+//  * Packs are created as drafts; only a supervisor can approve; approved packs are immutable
+//    (they can only be retired).
+//  * Readings can only be written by the technician the round is assigned to.
+//  * A completed ("done"/"failed") cloud escalation can never be reset to "queued", which makes
+//    re-queuing the same escalation id idempotent even from an offline device.
+//  * The inference ledger is append-only.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+    function wsDoc(w) {
+      return get(/databases/$(database)/documents/workspaces/$(w)).data;
+    }
+    function hasRole(w, role) {
+      return signedIn() && role in wsDoc(w).roles[request.auth.uid];
+    }
+    function member(w) {
+      return hasRole(w, 'supervisor') || hasRole(w, 'technician');
+    }
+    function changed() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    match /workspaces/{w} {
+      // A missing workspace may be probed by its owner (first sign-in), otherwise members only.
+      allow get: if signedIn() && ((resource == null && w == request.auth.uid)
+        || resource.data.roles[request.auth.uid] != null);
+      allow create: if signedIn() && w == request.auth.uid
+        && request.resource.data.owner == request.auth.uid
+        && request.resource.data.roles.keys().hasOnly([request.auth.uid]);
+      allow update, delete: if false;
+
+      match /packs/{packId} {
+        allow read: if member(w);
+        allow create: if hasRole(w, 'supervisor')
+          && request.resource.data.status == 'draft'
+          && !('approval' in request.resource.data);
+        allow update: if hasRole(w, 'supervisor') && (
+          // saving approval progress on a draft
+          (resource.data.status == 'draft' && request.resource.data.status == 'draft'
+            && changed().hasOnly(['draftApprovals', 'draftExcluded']))
+          // publishing a draft
+          || (resource.data.status == 'draft' && request.resource.data.status == 'approved'
+            && changed().hasOnly(['status', 'approval', 'draftApprovals', 'draftExcluded'])
+            && request.resource.data.approval.approvedItems.size() > 0
+            && request.resource.data.approval.approvedAt is number)
+          // retiring an approved pack (content stays immutable)
+          || (resource.data.status == 'approved' && request.resource.data.status == 'retired'
+            && changed().hasOnly(['status']))
+        );
+        allow delete: if false;
+      }
+
+      match /manuals/{packId} {
+        allow read: if member(w);
+        allow create: if hasRole(w, 'supervisor') && request.resource.data.text is string
+          && request.resource.data.text.size() < 900000;
+        allow update, delete: if false;
+      }
+
+      match /rounds/{roundId} {
+        allow read: if member(w);
+        allow create: if hasRole(w, 'supervisor') && request.resource.data.assignee is string;
+        allow update: if (signedIn() && resource.data.assignee == request.auth.uid
+            && changed().hasOnly(['status', 'startedAt', 'completedAt']))
+          || hasRole(w, 'supervisor');
+        allow delete: if false;
+
+        match /entries/{stepId} {
+          allow read: if member(w);
+          allow write: if signedIn()
+            && get(/databases/$(database)/documents/workspaces/$(w)/rounds/$(roundId)).data.assignee == request.auth.uid
+            && request.resource.data.stepId == stepId
+            && request.resource.data.recordedBy == request.auth.uid;
+        }
+      }
+
+      match /issues/{issueId} {
+        allow read, create, update: if member(w);
+        allow delete: if false;
+      }
+
+      match /escalations/{escId} {
+        allow read: if member(w);
+        allow create: if member(w) && request.resource.data.status == 'queued'
+          && request.resource.data.consentAt is number
+          && request.resource.data.payload is string
+          && request.resource.data.payload.size() < 20000;
+        allow update: if member(w)
+          && !(resource.data.status in ['done', 'failed'])
+          && request.resource.data.payload == resource.data.payload;
+        allow delete: if false;
+      }
+
+      match /handovers/{hId} {
+        allow read, create: if member(w);
+        allow update: if member(w) && changed().hasOnly(['acknowledgedBy', 'acknowledgedAt']);
+        allow delete: if false;
+      }
+
+      match /ledger/{eventId} {
+        allow read, create: if member(w);
+        allow update, delete: if false;
+      }
+    }
+  }
+}
