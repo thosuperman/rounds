@@ -1,6 +1,6 @@
 # Devpost submission draft: Rounds
 
-> Draft for review. Nothing has been submitted. Before submitting, replace the placeholders `<YouTube URL>`, `<GitHub URL>` and `<demo URL>`.
+> Draft for review. Nothing has been submitted. Before submitting, replace the placeholders `<YouTube URL>` and `<GitHub URL>`, and make the repo public.
 
 **Tagline (≤ 200 chars):** Offline inspection rounds with hybrid AI. Cloud Gemini compiles the manual, on-device Gemini Nano helps in the field, and approved rules, not AI, decide what is safe.
 
@@ -94,7 +94,7 @@ firebase-ai-logic · gemini · gemini-nano · chrome-built-in-ai · cloud-firest
 
 - Video: `<YouTube URL>`
 - Repository: `<GitHub URL>` (Apache-2.0)
-- Live demo: `<demo URL>`. On-device AI needs desktop Chrome with built-in AI; other browsers use the cloud and label it so.
+- Live demo: https://rounds-hybrid-bfb0.web.app (custom domain `rounds.hayaix.tech` once DNS is set). On-device AI needs desktop Chrome with built-in AI. In other browsers, readings and rules work, and AI help uses the cloud after you switch on **Cloud fallback** (labelled "Cloud").
 
 ## Notes for judges
 

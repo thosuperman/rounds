@@ -75,13 +75,13 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 | 4 | Cloud evidence | Compile, review, trends, SDK fallback after opt-in |
 | 5 | Features | README "What it does" and "Safety design" |
 | 6 | Tests | 30 unit + 16 rules tests pass; production build passes |
-| 7 | Deployment | **Not deployed.** The Fraud Defense key is registered in App Check; waiting for your deploy approval. Custom domain rounds.hayaix.tech still needs Route 53 records |
+| 7 | Deployment | **Deployed 2026-11-14 to https://rounds-hybrid-bfb0.web.app** (Firebase Hosting, free). Live checks: App Check token from Fraud Defense (exchange 200), cloud compile `IN_CLOUD` 76.4 s, Firestore writes 200, publish lock, and an on-device note check (`ON_DEVICE` 23.4 s, no AI Logic request sent) (`23`). The production bundle contains no debug token. Custom domain rounds.hayaix.tech is still pending (Route 53 records) |
 | 8 | Screenshots | `evidence/01–22` (real captures; `05` predates the guards) |
 | 9 | Video | **Not recorded.** Script `docs/VIDEO_SCRIPT.md` (≈320 words, 104–124 wpm per scene) and subtitles `docs/VIDEO_SUBTITLES.srt` |
-| 10 | Public repo readiness | Apache-2.0, `.gitignore`, no secrets outside the git-ignored `.env.local`. **Not a git repo yet; nothing pushed** (needs your approval) |
+| 10 | Public repo readiness | Pushed to **private** github.com/thosuperman/rounds (Apache-2.0, secrets scanned). Make it public before submitting. |
 | 11 | Devpost materials | `docs/DEVPOST.md` (video, repo and demo URLs are placeholders) |
 | 12 | Remaining risks | On-device latency 34–80 s on this laptop. Desktop-only on-device AI. Web-only (no iOS). Compile output varies by run, so the paraphrase moment may not repeat on camera. No real users or pilot. |
-| 13 | Verdict | **NOT READY to submit.** The product is **ready to record**. Missing: repo publication, hosted demo with production App Check, video, Devpost URLs. |
+| 13 | Verdict | **NOT READY to submit.** The product is **ready to record**, and the hosted demo works. Missing: making the repo public, the video, Devpost URLs (and optionally the custom domain). |
 
 ## Built so far (web)
 
@@ -110,7 +110,7 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 - `web`: `tsc -b` is clean, and `vite build` succeeds.
 
 ## Still to do
-1. You: approve the Firebase Hosting deploy. Then add the custom domain rounds.hayaix.tech (Route 53 records).
+1. You: add the custom domain rounds.hayaix.tech in Firebase Hosting and its DNS records in Route 53.
 2. You: approve creating the public GitHub repo and the first commit.
 3. Record the video (real runs, following `docs/VIDEO_SCRIPT.md`) and upload it to YouTube.
 4. Fill the URLs in `docs/DEVPOST.md`. Submit only after your final approval (deadline Dec 1 07:00 JST).
