@@ -43,7 +43,7 @@ Everything below was executed through the real UI using `tools/ui.mjs` (puppetee
 ### Known limits (honest)
 - On-device latency on this Intel Mac is 10–80 s per call. It is usable for a demo, but slow; a Gemini Nano GPU on Apple Silicon or a newer GPU would be faster.
 - The compiler dropped the seal step's qualitative criterion ("continuous stream is a deviation"). Supervisor review is the control for this.
-- Production App Check (reCAPTCHA v3 key) is not set up yet. Only the local debug token is registered, so a hosted build will fail until a site key exists.
+- (Resolved 2026-11-14) Production App Check uses a score-based Fraud Defense (reCAPTCHA Enterprise) key in this project. Domains: rounds.hayaix.tech, rounds-hybrid-bfb0.web.app and rounds-hybrid-bfb0.firebaseapp.com. No billing on the project.
 
 ## Phase 3: independent judge review and fixes (2026-11-14)
 
@@ -75,7 +75,7 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 | 4 | Cloud evidence | Compile, review, trends, SDK fallback after opt-in |
 | 5 | Features | README "What it does" and "Safety design" |
 | 6 | Tests | 30 unit + 16 rules tests pass; production build passes |
-| 7 | Deployment | **Not deployed.** Hosting needs a reCAPTCHA v3 key (your Google account) and your approval |
+| 7 | Deployment | **Not deployed.** The Fraud Defense key is registered in App Check; waiting for your deploy approval. Custom domain rounds.hayaix.tech still needs Route 53 records |
 | 8 | Screenshots | `evidence/01–22` (real captures; `05` predates the guards) |
 | 9 | Video | **Not recorded.** Script `docs/VIDEO_SCRIPT.md` (≈320 words, 104–124 wpm per scene) and subtitles `docs/VIDEO_SUBTITLES.srt` |
 | 10 | Public repo readiness | Apache-2.0, `.gitignore`, no secrets outside the git-ignored `.env.local`. **Not a git repo yet; nothing pushed** (needs your approval) |
@@ -110,8 +110,10 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 - `web`: `tsc -b` is clean, and `vite build` succeeds.
 
 ## Still to do
-1. You: create a reCAPTCHA v3 site key for the hosted domain (free), then approve the Firebase Hosting deploy.
+1. You: approve the Firebase Hosting deploy. Then add the custom domain rounds.hayaix.tech (Route 53 records).
 2. You: approve creating the public GitHub repo and the first commit.
 3. Record the video (real runs, following `docs/VIDEO_SCRIPT.md`) and upload it to YouTube.
 4. Fill the URLs in `docs/DEVPOST.md`. Submit only after your final approval (deadline Dec 1 07:00 JST).
 5. Optional: iOS spike (iPhone 17e, Xcode 26.5 + firebase-ios-sdk 12.19.3).
+
+- Security fix (2026-11-14): the production bundle used to inline the App Check debug token (aliased `import.meta.env`). Fixed before any deploy, and verified absent from `dist/`.

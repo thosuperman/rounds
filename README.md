@@ -69,7 +69,7 @@ On-device AI requires desktop Chrome with the built-in Prompt API (tested on Chr
    - **Authentication** → enable **Anonymous** sign-in.
    - **AI Logic** → Get started → **Gemini Developer API**.
    - **Firestore** → create the database.
-   - **App Check** → register the web app. Add a **debug token** for local development and a **reCAPTCHA v3** key for hosted builds.
+   - **App Check** → register the web app. Add a **debug token** for local development. For hosted builds, create a score-based key in **Google Cloud Fraud Defense** (formerly reCAPTCHA Enterprise; the reCAPTCHA Classic option is deprecated) in the same project, with your hosting domains, and register it under the Fraud Defense provider.
 2. Deploy the rules, indexes and Remote Config template:
    ```bash
    firebase deploy --only firestore,remoteconfig --project <your-project-id>
