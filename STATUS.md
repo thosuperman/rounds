@@ -77,9 +77,9 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 | 6 | Tests | 30 unit + 16 rules tests pass; production build passes |
 | 7 | Deployment | **Deployed 2026-11-14 to https://rounds-hybrid-bfb0.web.app** (Firebase Hosting, free). Live checks: App Check token from Fraud Defense (exchange 200), cloud compile `IN_CLOUD` 76.4 s, Firestore writes 200, publish lock, and an on-device note check (`ON_DEVICE` 23.4 s, no AI Logic request sent) (`23`). The production bundle contains no debug token. **Custom domain https://rounds.hayaix.tech is live** (Route 53 CNAME, Let's Encrypt certificate). App Check exchange, Firestore and a cloud compile (`IN_CLOUD` 56.7 s) were verified on it. |
 | 8 | Screenshots | `evidence/01–22` (real captures; `05` predates the guards) |
-| 9 | Video | **Rendered, not uploaded.** `video/Rounds_Final_Demo_1080p.mp4` (2:58.7, 1080p30), narration v2 with Kokoro TTS `am_michael` (0.4% word errors when transcribed by Whisper, against 3.2% for the old Reed voice), subtitles `video/Rounds_Subtitles.srt`. QA: `video/Rounds_Video_QA.md`. Needs one human listen, then YouTube upload after approval |
+| 9 | Video | **Uploaded: https://youtu.be/Zj5bSjHjnFY** `video/Rounds_Final_Demo_1080p.mp4` (2:58.7, 1080p30), narration v2 with Kokoro TTS `am_michael` (0.4% word errors when transcribed by Whisper, against 3.2% for the old Reed voice), subtitles `video/Rounds_Subtitles.srt`. QA: `video/Rounds_Video_QA.md`. On YouTube with the title from `video/Rounds_YouTube.md` |
 | 10 | Public repo readiness | Pushed to **private** github.com/thosuperman/rounds (Apache-2.0, secrets scanned). Make it public before submitting. |
-| 11 | Devpost materials | `docs/DEVPOST.md` (video, repo and demo URLs are placeholders) |
+| 11 | Devpost materials | `docs/DEVPOST.md`: final text, submission fields, thumbnail and 9 captioned gallery images in `docs/devpost/` |
 | 12 | Remaining risks | On-device latency 34–80 s on this laptop. Desktop-only on-device AI. Web-only (no iOS). Compile output varies by run, so the paraphrase moment may not repeat on camera. No real users or pilot. |
 | 13 | Verdict | **NOT READY to submit.** The product is **ready to record**, and the hosted demo works. Missing: making the repo public, the video, Devpost URLs. |
 
@@ -105,13 +105,13 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 
 ## Tests run
 
-- `web`: **30/30** domain unit tests pass (`npx vitest run`, 2026-11-14).
+- `web`: **31/31** domain unit tests pass (`npx vitest run`, 2026-11-14).
 - `rules-test`: **16/16** Firestore rules tests pass on the emulator (`npm --prefix rules-test test`, 2026-11-14).
 - `web`: `tsc -b` is clean, and `vite build` succeeds.
 
 ## Still to do
 2. You: approve creating the public GitHub repo and the first commit.
-3. Record the video (real runs, following `docs/VIDEO_SCRIPT.md`) and upload it to YouTube.
+3. ~~Record and upload the video~~ Done: https://youtu.be/Zj5bSjHjnFY. Check that it is set to Public (Devpost requires it).
 4. Fill the URLs in `docs/DEVPOST.md`. Submit only after your final approval (deadline Dec 1 07:00 JST).
 5. Optional: iOS spike (iPhone 17e, Xcode 26.5 + firebase-ios-sdk 12.19.3).
 

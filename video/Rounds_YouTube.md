@@ -1,4 +1,6 @@
-# YouTube upload (draft, not uploaded)
+# YouTube upload
+
+Uploaded: https://youtu.be/Zj5bSjHjnFY
 
 **Title (≤100 chars)**
 Rounds: offline inspection rounds with hybrid AI (Firebase AI Logic) | #BuildHybridAI 2026

@@ -75,7 +75,7 @@ Terms checked: Firebase AI Logic, Gemini, Gemini Nano, hybrid inference, on-devi
 ## What I could not do
 
 - **I cannot hear audio.** "Listening" here means automatic transcription, recognizer confidence, waveform measurements and frame checks, not a human ear. They show the speech is recognized word for word, even through a simulated laptop speaker. They cannot judge how pleasant the voice sounds. **Please listen once before uploading.** If a word sounds off, regenerating one line takes about a minute (`voice.py`, `asr_lines.py`, `edit.py`).
-- **Not uploaded.** The YouTube upload waits for your approval.
+- **Uploaded** to YouTube: https://youtu.be/Zj5bSjHjnFY
 
 ## Reproduce
 

@@ -1,8 +1,46 @@
-# Devpost submission draft: Rounds
+# Devpost submission: Rounds
 
-> Draft for review. Nothing has been submitted. Before submitting, replace the placeholders `<YouTube URL>` and `<GitHub URL>`, and make the repo public.
+> Final version for submission. Nothing has been submitted yet. Before you press Submit, make the GitHub repo **public** and check that the YouTube video is set to **Public**.
 
-**Tagline (≤ 200 chars):** Offline inspection rounds with hybrid AI. Cloud Gemini compiles the manual, on-device Gemini Nano helps in the field, and approved rules, not AI, decide what is safe.
+## Submission fields (copy into Devpost)
+
+| Field | Value |
+|---|---|
+| Project name | Rounds |
+| Elevator pitch (≤ 200 chars, 166 used) | Offline inspection rounds with hybrid AI. Cloud Gemini compiles the manual, on-device Gemini Nano helps in the field, and approved rules, not AI, decide what is safe. |
+| Thumbnail (3:2) | `docs/devpost/00-thumbnail.png` (1500×1000) |
+| Video | https://youtu.be/Zj5bSjHjnFY |
+| Try it out | https://rounds.hayaix.tech · https://github.com/thosuperman/rounds |
+| Built with | firebase-ai-logic, gemini, gemini-nano, chrome-built-in-ai, cloud-firestore, firebase-app-check, firebase-auth, firebase-remote-config, firebase-hosting, react, typescript, vite, pwa, ajv, vitest |
+| Story | Everything from **Inspiration** to **Notes for judges** below |
+
+### Image gallery (upload in this order, 3:2, each under 1 MB)
+
+All app images are real frames from the recorded demo run (the same build as the live site), apart from #9, a screenshot of the same workspace taken after the run. The equipment is fictional.
+
+| # | File | Caption |
+|---|---|---|
+| 1 | `docs/devpost/01-architecture.png` | Architecture: cloud Gemini compiles the manual, Gemini Nano helps on the device, and rules plus supervisor approval decide what is safe. |
+| 2 | `docs/devpost/02-cloud-compile.png` | Cloud Gemini (ONLY_IN_CLOUD) compiles the manual into a draft pack in 149 s. Every limit must quote the manual word for word. |
+| 3 | `docs/devpost/03-supervisor-review.png` | The supervisor approves item by item. A safety line the AI paraphrased is flagged and excluded before publishing. |
+| 4 | `docs/devpost/04-offline-on-device.png` | Network off: Gemini Nano checks the technician's note on the device (69.4 s). The label comes from response.inferenceSource. |
+| 5 | `docs/devpost/05-rule-alarm.png` | 82 °C is judged by a rule, not AI: alarm, manual quote, approved escalation rules, and a repeat deviation from an earlier shift. |
+| 6 | `docs/devpost/06-consent.png` | Before a cloud review, the technician sees the exact text to be sent. Offline, the request is queued on the device. |
+| 7 | `docs/devpost/07-cloud-review.png` | Back online, the queued request runs on cloud Gemini (3.0 s) with the manual section and this check's history. Advisory only. |
+| 8 | `docs/devpost/08-handover.png` | Gemini Nano drafts the shift handover on the device (49.1 s), above a facts table built by rules from the recorded readings. |
+| 9 | `docs/devpost/09-hybrid-ledger.png` | Hybrid ledger: every AI call with its real source. This run: 2 on-device, 2 cloud, 0 failed. |
+
+The images are rendered by `video/gallery.mjs` from stills of the recording.
+
+### Final checks before Submit
+
+- [ ] GitHub repo set to public, and the README renders
+- [ ] YouTube video visibility is Public
+- [ ] https://rounds.hayaix.tech loads (one reload may be needed after a deploy)
+- [ ] All gallery images uploaded with captions, and the thumbnail set
+- [ ] Final read-through of the story below
+
+---
 
 ## Inspiration
 
@@ -36,7 +74,7 @@ AI could help here, but only if it works offline and never gets the final say on
   - `ONLY_IN_CLOUD` for compiling the manual, reviews and trends.
 - **One JSON Schema per task**, shared by three consumers: the on-device `responseConstraint`, the cloud `responseJsonSchema`, and Ajv validation.
 - **Step cards.** A pack is split into per-step cards, capped at 900 tokens (150–210 in the demo), so each on-device call carries one step instead of the whole manual. Measured with Chrome's own token counter and Firebase AI Logic in `ONLY_ON_DEVICE` mode: a note check costs 338 tokens with a step card vs 4,744 with the full 18 KB manual, took 34–49 s vs 109–140 s on my laptop, and caught the out-of-limit reading in 3 of 3 runs vs 0 of 3.
-- **Deterministic domain layer** (TypeScript, 30 tests):
+- **Deterministic domain layer** (TypeScript, 31 tests):
   - unit-aware measurement parser
   - threshold checks
   - quote verification
@@ -92,8 +130,8 @@ firebase-ai-logic · gemini · gemini-nano · chrome-built-in-ai · cloud-firest
 
 ## Links
 
-- Video: `<YouTube URL>`
-- Repository: `<GitHub URL>` (Apache-2.0)
+- Video: https://youtu.be/Zj5bSjHjnFY
+- Repository: https://github.com/thosuperman/rounds (Apache-2.0)
 - Live demo: https://rounds.hayaix.tech. On-device AI needs desktop Chrome with built-in AI. In other browsers, readings and rules work, and AI help uses the cloud after you switch on **Cloud fallback** (labelled "Cloud").
 
 ## Notes for judges
