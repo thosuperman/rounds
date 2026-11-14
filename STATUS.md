@@ -1,4 +1,4 @@
-# Rounds — build status (updated 2026-11-14)
+# Rounds — build status (updated 2026-11-15)
 
 ## Phase 1 reality check
 
@@ -74,14 +74,15 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 | 3 | On-device evidence | Phases 2–3 (offline runs, measurement JSON, screenshots) |
 | 4 | Cloud evidence | Compile, review, trends, SDK fallback after opt-in |
 | 5 | Features | README "What it does" and "Safety design" |
-| 6 | Tests | 30 unit + 16 rules tests pass; production build passes |
-| 7 | Deployment | **Deployed 2026-11-14 to https://rounds-hybrid-bfb0.web.app** (Firebase Hosting, free). Live checks: App Check token from Fraud Defense (exchange 200), cloud compile `IN_CLOUD` 76.4 s, Firestore writes 200, publish lock, and an on-device note check (`ON_DEVICE` 23.4 s, no AI Logic request sent) (`23`). The production bundle contains no debug token. **Custom domain https://rounds.hayaix.tech is live** (Route 53 CNAME, Let's Encrypt certificate). App Check exchange, Firestore and a cloud compile (`IN_CLOUD` 56.7 s) were verified on it. |
+| 6 | Tests | 41 unit tests (31 domain, 10 legal pages) + 16 rules tests pass; production build passes |
+| 7 | Deployment | **Deployed 2026-11-14 to https://rounds-hybrid-bfb0.web.app** (Firebase Hosting, free). Live checks: App Check token from Fraud Defense (exchange 200), cloud compile `IN_CLOUD` 76.4 s, Firestore writes 200, publish lock, and an on-device note check (`ON_DEVICE` 23.4 s, no AI Logic request sent) (`23`). The production bundle contains no debug token. **Custom domain https://rounds.hayaix.tech is live** (Route 53 CNAME, Let's Encrypt certificate). App Check exchange, Firestore and a cloud compile (`IN_CLOUD` 56.7 s) were verified on it. **2026-11-15:** legal pages and the Hybrid ledger wording fix deployed (`f2f57cb`, `b1f0b01`); the live bundle was checked. |
 | 8 | Screenshots | `evidence/01–22` (real captures; `05` predates the guards) |
-| 9 | Video | **Uploaded: https://youtu.be/Zj5bSjHjnFY** `video/Rounds_Final_Demo_1080p.mp4` (2:58.7, 1080p30), narration v2 with Kokoro TTS `am_michael` (0.4% word errors when transcribed by Whisper, against 3.2% for the old Reed voice), subtitles `video/Rounds_Subtitles.srt`. QA: `video/Rounds_Video_QA.md`. On YouTube with the title from `video/Rounds_YouTube.md` |
+| 9 | Video | **Uploaded: https://youtu.be/Zj5bSjHjnFY** `video/Rounds_Final_Demo_1080p.mp4` (2:58.7, 1080p30), narration v2 with Kokoro TTS `am_michael` (0.4% word errors when transcribed by Whisper, against 3.2% for the old Reed voice), subtitles `video/Rounds_Subtitles.srt`. QA: `video/Rounds_Video_QA.md`. On YouTube with the title from `video/Rounds_YouTube.md`. Visibility **Public** (checked 2026-11-15: listed on the channel, `isUnlisted:false`). |
 | 10 | Public repo readiness | **Public** at github.com/thosuperman/rounds (Apache-2.0, secrets scanned across full history 2026-11-15). |
-| 11 | Devpost materials | `docs/DEVPOST.md`: final text, submission fields, thumbnail and 9 captioned gallery images in `docs/devpost/` |
+| 11 | Devpost materials | `docs/DEVPOST.md`: final text, submission fields, form answers, thumbnail and 9 captioned gallery images in `docs/devpost/` (images 1 and 9 regenerated 2026-11-15 after the wording fix) |
+| 14 | Legal pages | **Live 2026-11-15:** https://rounds.hayaix.tech/terms, /privacy, /disclaimer, linked from the footer of every screen. The privacy policy was written from an audit of the code (`web/src/legal/content.tsx`); update it whenever data handling changes. |
 | 12 | Remaining risks | On-device latency 34–80 s on this laptop. Desktop-only on-device AI. Web-only (no iOS). Compile output varies by run, so the paraphrase moment may not repeat on camera. No real users or pilot. |
-| 13 | Verdict | **NOT READY to submit.** The product is **ready to record**, and the hosted demo works. Missing: making the repo public, the video, Devpost URLs. |
+| 13 | Verdict | **READY to submit.** Repo public, video public, live demo and legal pages live, Devpost text and images final. Left for you: fill in the Devpost form and upload the images, a final read-through, then Submit. |
 
 ## Built so far (web)
 
@@ -110,9 +111,12 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 - `web`: `tsc -b` is clean, and `vite build` succeeds.
 
 ## Still to do
-2. You: approve creating the public GitHub repo and the first commit.
-3. ~~Record and upload the video~~ Done: https://youtu.be/Zj5bSjHjnFY. Check that it is set to Public (Devpost requires it).
-4. Fill the URLs in `docs/DEVPOST.md`. Submit only after your final approval (deadline Dec 1 07:00 JST).
-5. Optional: iOS spike (iPhone 17e, Xcode 26.5 + firebase-ios-sdk 12.19.3).
+
+1. ~~Make the GitHub repo public~~ Done (2026-11-15).
+2. ~~Record and upload the video~~ Done: https://youtu.be/Zj5bSjHjnFY, Public.
+3. ~~Fill the URLs in `docs/DEVPOST.md`~~ Done.
+4. ~~Legal pages (Terms, Privacy, Disclaimer)~~ Done and live.
+5. You: fill in the Devpost form from `docs/DEVPOST.md`, upload the thumbnail and gallery with captions, read it through, and submit (deadline Dec 1 07:00 JST).
+6. Optional: iOS spike (iPhone 17e, Xcode 26.5 + firebase-ios-sdk 12.19.3).
 
 - Security fix (2026-11-14): the production bundle used to inline the App Check debug token (aliased `import.meta.env`). Fixed before any deploy, and verified absent from `dist/`.

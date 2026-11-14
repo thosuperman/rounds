@@ -1,6 +1,6 @@
 # Devpost submission: Rounds
 
-> Final version for submission. Nothing has been submitted yet. Before you press Submit, make the GitHub repo **public** and check that the YouTube video is set to **Public**.
+> Final version for submission. Nothing has been submitted yet. The repo and video are public; see the checklist below.
 
 ## Submission fields (copy into Devpost)
 
@@ -13,6 +13,45 @@
 | Try it out | https://rounds.hayaix.tech · https://github.com/thosuperman/rounds |
 | Built with | firebase-ai-logic, gemini, gemini-nano, chrome-built-in-ai, cloud-firestore, firebase-app-check, firebase-auth, firebase-remote-config, firebase-hosting, react, typescript, vite, pwa, ajv, vitest |
 | Story | Everything from **Inspiration** to **Notes for judges** below |
+
+### Form answers
+
+**Project start date (MM-DD-YY):** 11-12-26
+
+**Platform(s):** Web (Chrome) only. No iOS or Android app was built.
+
+**How the project meets the main technology requirement:**
+
+Rounds uses **Firebase AI Logic for all of its generative AI**, through the Web SDK (firebase 13.3) with the Gemini Developer API. It uses both hybrid inference paths, and each task is assigned to one on purpose:
+
+- **On-device (`PREFER_ON_DEVICE`):** Chrome's built-in Gemini Nano checks a technician's note, answers questions about the current step, and drafts the shift handover. This works fully offline. In the demo, a note was checked on the device in 69.4 s with the network off. Cloud fallback for these tasks is used only after the user opts in, so notes are never sent to the cloud without consent.
+- **Cloud (`ONLY_IN_CLOUD`):** Gemini compiles the full equipment manual into a procedure pack once. It also runs consented reviews and trend analysis. A review requested offline waits in a queue and runs when the connection returns.
+- **The two paths work together.** The cloud model splits the manual into small step cards for the on-device model. A note check then takes 338 tokens instead of 4,744 for the full manual, ran in 34–49 s instead of 109–140 s, and caught an out-of-limit reading in 3 of 3 runs instead of 0 of 3.
+- **Every AI result shows where it really ran**, taken from the SDK's `response.inferenceSource`, and every call is recorded in a Hybrid ledger.
+- **App Check is enforced** on Firebase AI Logic. A call without a valid token gets HTTP 401.
+
+Measurement limits and safety decisions are made by deterministic, supervisor-approved rules, never by AI.
+
+**Testing instructions or credentials:**
+
+**No login or credentials needed.** Open https://rounds.hayaix.tech. Each browser gets its own new, empty workspace through anonymous sign-in. The equipment manual is fictional and labelled DEMO ONLY.
+
+**Browser:** use desktop Chrome with built-in AI (the Prompt API, tested on Chrome 157), on hardware that meets Chrome's requirements for built-in AI. The top bar shows **On-device AI ready** when Gemini Nano is available. In other browsers everything except on-device AI still works. Turn on **Cloud fallback** in the top bar to run AI help in the cloud; those results are labelled **Cloud AI**. On-device calls take about 10–80 s on a laptop, and a progress timer shows while one runs.
+
+**Steps (about 10 minutes):**
+1. **Supervisor** → *Compile a manual* → *Use demo manual* → *Compile with cloud AI* (about 1–2.5 min, labelled Cloud AI).
+2. Review the draft. Each item shows its manual quote. Exclude any item flagged "AI wording is not verbatim", then *Approve all items with no findings* → *Publish*.
+3. *Seed demo history (synthetic)* → *Assign round*.
+4. **Technician** → *Start*. Then go offline: DevTools → Network → Offline. The pill turns red.
+5. Enter readings `4.1` and `82`. Rules flag 82 °C as an ALARM, without AI. Write a note → *Check my note (local AI)*. The result is labelled **On-device AI**.
+6. At the vibration step, enter `5.2` → *Request detailed cloud analysis* → *Queue for later*.
+7. Go back online. The queued review runs on the cloud and the pill shows **Synced**.
+8. *Complete round* → **Handover**: an on-device summary above a facts table built by rules.
+9. **Hybrid ledger** lists every AI call and where it ran.
+
+**Video:** https://youtu.be/Zj5bSjHjnFY · **Code:** https://github.com/thosuperman/rounds (setup steps for running it locally are in the README) · **Legal:** https://rounds.hayaix.tech/terms, /privacy, /disclaimer
+
+**Open-source license URL:** https://github.com/thosuperman/rounds/blob/main/LICENSE (Apache License 2.0)
 
 ### Image gallery (upload in this order, 3:2, each under 1 MB)
 
@@ -34,10 +73,13 @@ The images are rendered by `video/gallery.mjs` from stills of the recording.
 
 ### Final checks before Submit
 
-- [ ] GitHub repo set to public, and the README renders
-- [ ] YouTube video visibility is Public
-- [ ] https://rounds.hayaix.tech loads (one reload may be needed after a deploy)
-- [ ] All gallery images uploaded with captions, and the thumbnail set
+- [x] GitHub repo set to public, and the README renders (checked 2026-11-15)
+- [x] YouTube video visibility is Public (checked 2026-11-15: listed on the channel)
+- [x] https://rounds.hayaix.tech loads (one reload may be needed after a deploy)
+- [x] Legal pages live: https://rounds.hayaix.tech/terms, /privacy, /disclaimer
+- [x] License URL works: https://github.com/thosuperman/rounds/blob/main/LICENSE
+- [ ] All gallery images uploaded with captions, and the thumbnail set (re-upload images 1 and 9 if older versions were uploaded)
+- [ ] Devpost form answers pasted (platform, technology requirement, testing instructions, license URL)
 - [ ] Final read-through of the story below
 
 ---
