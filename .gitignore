@@ -14,3 +14,4 @@ video/node_modules
 *.wav
 video/*.mp4
 video/overlays/
+video/previous_reed/

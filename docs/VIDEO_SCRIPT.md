@@ -1,5 +1,7 @@
 # Demo video script (target 2:50, ≤ 3:00)
 
+> Pre-production plan. The final narration as spoken is in `video/Rounds_Narration_Script.md`; `docs/VIDEO_SUBTITLES.srt` is a copy of the final subtitles.
+
 - **Format:** screen recording of the real app in desktop Chrome with on-device AI enabled. Narration is calm English at about 110 words per minute (≈ 315 words). English subtitles come from `VIDEO_SUBTITLES.srt`.
 - **Honesty rules:**
   - Record real runs only.

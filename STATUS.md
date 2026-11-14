@@ -77,7 +77,7 @@ A separate reviewer read the code and docs as a skeptical judge. It scored Techn
 | 6 | Tests | 30 unit + 16 rules tests pass; production build passes |
 | 7 | Deployment | **Deployed 2026-11-14 to https://rounds-hybrid-bfb0.web.app** (Firebase Hosting, free). Live checks: App Check token from Fraud Defense (exchange 200), cloud compile `IN_CLOUD` 76.4 s, Firestore writes 200, publish lock, and an on-device note check (`ON_DEVICE` 23.4 s, no AI Logic request sent) (`23`). The production bundle contains no debug token. **Custom domain https://rounds.hayaix.tech is live** (Route 53 CNAME, Let's Encrypt certificate). App Check exchange, Firestore and a cloud compile (`IN_CLOUD` 56.7 s) were verified on it. |
 | 8 | Screenshots | `evidence/01–22` (real captures; `05` predates the guards) |
-| 9 | Video | **Not recorded.** Script `docs/VIDEO_SCRIPT.md` (≈320 words, 104–124 wpm per scene) and subtitles `docs/VIDEO_SUBTITLES.srt` |
+| 9 | Video | **Rendered, not uploaded.** `video/Rounds_Final_Demo_1080p.mp4` (2:58.7, 1080p30), narration v2 with Kokoro TTS `am_michael` (0.4% word errors when transcribed by Whisper, against 3.2% for the old Reed voice), subtitles `video/Rounds_Subtitles.srt`. QA: `video/Rounds_Video_QA.md`. Needs one human listen, then YouTube upload after approval |
 | 10 | Public repo readiness | Pushed to **private** github.com/thosuperman/rounds (Apache-2.0, secrets scanned). Make it public before submitting. |
 | 11 | Devpost materials | `docs/DEVPOST.md` (video, repo and demo URLs are placeholders) |
 | 12 | Remaining risks | On-device latency 34–80 s on this laptop. Desktop-only on-device AI. Web-only (no iOS). Compile output varies by run, so the paraphrase moment may not repeat on camera. No real users or pilot. |

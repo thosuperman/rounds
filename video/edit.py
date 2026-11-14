@@ -2,20 +2,18 @@
 """Assemble Rounds_Final_Demo_1080p.mp4 from the real recordings, narration and overlays.
 
 Every frame of app footage comes from raw/<scene>.webm (real runs). Long AI waits are cut, and a
-caption states the real measured duration. Narration lines are placed one after another with
-fixed pauses; subtitles use exactly those timings.
+caption states the real measured duration. Narration lines (Kokoro TTS, see voice.py) start at\nper-line anchors in each scene; subtitles are split at word timings measured by asr_lines.py.
 """
 import json, os, subprocess, sys, math
 
 FPS = 30
 W, H = 1920, 1080
-GAP_LINE, GAP_SCENE = 0.6, 1.0
-TITLE, END = 3.5, 5.0
-LEAD = 0.6  # silence at the start of each scene before the first line
+MIN_GAP, GAP_SCENE = 0.5, 0.8
+TITLE, END = 3.5, 4.5
 
 os.makedirs('build', exist_ok=True)
 os.makedirs('overlays', exist_ok=True)
-narr = json.load(open('narration.timed.json'))
+narr = json.load(open('narration.timed.json'))['scenes']
 plan = json.load(open('plan.json'))  # per scene: segments [[a,b],...] in raw seconds, chip, captions
 
 
@@ -46,34 +44,35 @@ for s in narr:
              '-c:v', 'libx264', '-preset', 'medium', '-crf', '14', '-an', dst])
         print(f"{s['id']}: retimed by {k:.3f} to {wall:.1f}s")
 
-# 2. Timeline: title, scenes, end card. Scene length = narration length (+ pauses).
+# 2. Timeline: title, scenes, end card. Each line starts at its anchor in the scene (the moment its
+# action is on screen) or MIN_GAP after the previous line, whichever is later. A scene keeps its full
+# footage; if the narration runs past it, the last frame is held.
 timeline, subs, t = [], [], TITLE
 overlay_spec = []
 for s in narr:
     p = plan[s['id']]
-    start = t
-    lt = start + LEAD
+    start, prev_end, lines_t = t, -1e9, []
     for i, (line, d) in enumerate(zip(s['lines'], s['durs'])):
-        # split long lines into two cues at a word boundary proportional to words
-        words = line.split()
-        if len(words) > 16:
-            k = len(words) // 2
-            # prefer splitting after punctuation near the middle
-            for j in range(k - 4, k + 5):
-                if 0 < j < len(words) and words[j - 1][-1] in ',.:;':
-                    k = j; break
-            parts = [' '.join(words[:k]), ' '.join(words[k:])]
+        lt = max(start + s['at'][i], prev_end + MIN_GAP)
+        timeline.append(('audio', lt, f"audio/{s['id']}_{i}.wav"))
+        lines_t.append((lt, d)); prev_end = lt + d
+    for i, (line, (lt, d)) in enumerate(zip(s['lines'], lines_t)):
+        words, ww = line.split(), s['words'][i]
+        cut = None
+        if len(words) > 12 and len(ww) == len(words):
+            mid = len(words) / 2  # split at the sentence or comma break closest to the middle
+            for marks in ('.?:', ','):
+                cands = [j for j in range(3, len(words) - 2) if words[j - 1][-1] in marks]
+                if cands:
+                    cut = min(cands, key=lambda j: abs(j - mid)); break
+        nxt = lines_t[i + 1][0] if i + 1 < len(lines_t) else lt + d + 0.8
+        end = min(nxt - 0.05, lt + d + 0.5)
+        if cut:
+            tc = lt + (ww[cut - 1][2] + ww[cut][1]) / 2
+            subs.append((lt, tc, ' '.join(words[:cut]), None)); subs.append((tc, end, ' '.join(words[cut:]), None))
         else:
-            parts = [line]
-        tot = sum(len(x.split()) for x in parts)
-        ct = lt
-        for part in parts:
-            cd = d * len(part.split()) / tot
-            subs.append((ct, ct + cd, part, f"audio/{s['id']}_{i}.aiff" if part == parts[0] else None))
-            ct += cd
-        timeline.append(('audio', lt, f"audio/{s['id']}_{i}.aiff"))
-        lt += d + GAP_LINE
-    scene_len = (lt - GAP_LINE) - start + GAP_SCENE
+            subs.append((lt, end, line, None))
+    scene_len = max(s['footage'], prev_end - start + GAP_SCENE)
     timeline.append(('scene', start, s['id'], scene_len))
     if p.get('chip'):
         timeline.append(('overlay', start, start + scene_len, f"overlays/chip_{s['id']}.png"))
