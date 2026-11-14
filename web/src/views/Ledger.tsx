@@ -64,7 +64,7 @@ export function Ledger() {
               <td>
                 <code>PREFER_ON_DEVICE</code>
               </td>
-              <td>Short, single-turn, works offline; SDK falls back to cloud if no local model</td>
+              <td>Short, single-turn, works offline. Without a local model, runs in the cloud only if you turn on Cloud fallback</td>
             </tr>
             <tr>
               <td>Compile manual</td>

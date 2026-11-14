@@ -62,7 +62,7 @@
   <text x="488" y="152" class="t">Firebase AI Logic → Gemini (cloud)</text>
   <text x="488" y="175" class="s">Compile manual: ONLY_IN_CLOUD, gemini-3.5-flash</text>
   <text x="488" y="194" class="s">Review / trends: ONLY_IN_CLOUD, gemini-3.5-flash-lite</text>
-  <text x="488" y="213" class="s">Fallback for device tasks when no local model</text>
+  <text x="488" y="213" class="s">Device-task fallback: only after user opt-in</text>
   <text x="488" y="236" class="s">Same JSON Schema as on-device (responseJsonSchema)</text>
   <text x="488" y="255" class="s">Models set by Remote Config</text>
 
@@ -128,6 +128,7 @@
   <text x="826" y="614" class="lbl" font-size="11.5" fill="#0b6bcb">when online</text>
   <path class="lc dash" d="M880 420 C 860 420, 860 205, 822 200" marker-end="url(#c)"/>
   <text x="826" y="470" class="lbl" font-size="11.5" fill="#0b6bcb">SDK fallback</text>
+  <text x="826" y="484" class="lbl" font-size="11.5" fill="#0b6bcb">(opt-in only)</text>
   <path class="ln" d="M1060 606 L1060 640" marker-end="url(#a)"/>
 
   <!-- legend -->

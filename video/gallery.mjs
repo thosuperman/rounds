@@ -47,9 +47,11 @@ for (const [file, still, n, h, sub, kind] of SHOTS) {
 }
 
 // Ledger: full-page capture, scaled into the 1080 area.
+const lp = fs.readFileSync('build/stills/ledger_full.png');
+const LW = lp.readUInt32BE(16), LH = lp.readUInt32BE(20);
 await render('09-hybrid-ledger', 1920, 1280, `<style>${base} body{width:1920px;height:1280px;background:#17191b} ${bandCss}
-  .wrap{height:1080px;background:#17191b;display:flex;justify-content:center;align-items:flex-start;padding-top:12px} .wrap img{height:1060px;object-fit:cover;object-position:top;width:${Math.round(1898 * 1060 / 1810)}px}</style>
-  ${band('8', 'Hybrid ledger: every AI call and its real source', 'This session: 2 on-device, 2 cloud, 0 failed · rules for readings, AI for notes and reviews', 'hyb')}
+  .wrap{height:1080px;background:#17191b;display:flex;justify-content:center;align-items:flex-start;padding-top:12px} .wrap img{height:1060px;object-fit:cover;object-position:top;width:${Math.round(LW * 1060 / Math.min(LH, 1810))}px}</style>
+  ${band('8', 'Hybrid ledger: every AI call and its real source', 'This session: 1 on-device, 1 cloud, 0 failed · rules for readings, AI for notes and reviews', 'hyb')}
   <div class="wrap"><img src="${img('build/stills/ledger_full.png')}"></div>`);
 
 // Architecture: diagram on its own light background, 3:2.

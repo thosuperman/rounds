@@ -16,7 +16,7 @@
 
 ### Image gallery (upload in this order, 3:2, each under 1 MB)
 
-All app images are real frames from the recorded demo run (the same build as the live site), apart from #9, a screenshot of the same workspace taken after the run. The equipment is fictional.
+All app images are real frames from the recorded demo run (the same build as the live site), apart from #9, a screenshot of the same workspace taken after the run with two fresh AI calls (one on-device, one cloud). The equipment is fictional.
 
 | # | File | Caption |
 |---|---|---|
@@ -28,7 +28,7 @@ All app images are real frames from the recorded demo run (the same build as the
 | 6 | `docs/devpost/06-consent.png` | Before a cloud review, the technician sees the exact text to be sent. Offline, the request is queued on the device. |
 | 7 | `docs/devpost/07-cloud-review.png` | Back online, the queued request runs on cloud Gemini (3.0 s) with the manual section and this check's history. Advisory only. |
 | 8 | `docs/devpost/08-handover.png` | Gemini Nano drafts the shift handover on the device (49.1 s), above a facts table built by rules from the recorded readings. |
-| 9 | `docs/devpost/09-hybrid-ledger.png` | Hybrid ledger: every AI call with its real source. This run: 2 on-device, 2 cloud, 0 failed. |
+| 9 | `docs/devpost/09-hybrid-ledger.png` | Hybrid ledger: every AI call with its real source, plus the routing policy and the consented cloud review queue. |
 
 The images are rendered by `video/gallery.mjs` from stills of the recording.
 
