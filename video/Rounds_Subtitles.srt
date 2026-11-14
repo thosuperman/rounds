@@ -1,0 +1,116 @@
+1
+00:00:04,100 --> 00:00:10,371
+Every shift, technicians walk plant rooms and basements to check equipment.
+
+2
+00:00:10,971 --> 00:00:14,264
+Down there, the signal is often gone.
+
+3
+00:00:14,864 --> 00:00:22,398
+Rounds brings AI to that inspection round, while approved rules keep the final say on safety.
+
+4
+00:00:23,998 --> 00:00:31,213
+A supervisor starts with the equipment manual. This one is fictional, made for the demo.
+
+5
+00:00:31,813 --> 00:00:36,867
+Firebase AI Logic sends it once to Gemini in the cloud.
+
+6
+00:00:37,467 --> 00:00:40,681
+Gemini compiles it into a procedure pack:
+
+7
+00:00:40,681 --> 00:00:47,566
+limits the app can enforce, and one small card per step for the on-device model.
+
+8
+00:00:49,166 --> 00:00:52,706
+Every limit must quote the manual word for word,
+
+9
+00:00:52,706 --> 00:00:55,853
+and the app checks each quote in code.
+
+10
+00:00:56,453 --> 00:01:03,651
+Here, it flagged a safety line that Gemini reworded, so the supervisor excludes it.
+
+11
+00:01:04,251 --> 00:01:08,809
+Nothing reaches technicians until every item is approved.
+
+12
+00:01:10,409 --> 00:01:16,392
+The technician starts the round, and the approved pack is stored on the device.
+
+13
+00:01:16,992 --> 00:01:19,438
+Now the connection drops.
+
+14
+00:01:20,038 --> 00:01:25,413
+At the first check, the technician notes a faint rattling near the pump.
+
+15
+00:01:26,013 --> 00:01:32,313
+Chrome's built-in Gemini Nano, called through the same Firebase AI Logic SDK,
+
+16
+00:01:32,313 --> 00:01:35,989
+reviews the note on the device, offline.
+
+17
+00:01:37,589 --> 00:01:42,099
+Next, an abnormal reading: eighty-two degrees.
+
+18
+00:01:42,699 --> 00:01:48,990
+No AI judges this number. A rule compares it with the approved limit,
+
+19
+00:01:48,990 --> 00:01:54,313
+quotes the manual, and shows the escalation rule the supervisor approved.
+
+20
+00:01:54,913 --> 00:01:59,088
+It also sees that this check failed on an earlier shift.
+
+21
+00:02:00,688 --> 00:02:06,670
+At the vibration check, the reading is high again, with a squeal near the bearing.
+
+22
+00:02:07,270 --> 00:02:12,828
+For a deeper look, the technician sees exactly what would be sent,
+
+23
+00:02:12,828 --> 00:02:16,533
+and agrees. Offline, it waits on the device.
+
+24
+00:02:17,133 --> 00:02:20,177
+When the connection returns, the changes sync,
+
+25
+00:02:20,177 --> 00:02:26,699
+and Gemini in the cloud reviews it with the manual section and this check's history.
+
+26
+00:02:28,299 --> 00:02:30,740
+At the end of the round,
+
+27
+00:02:30,740 --> 00:02:36,842
+the device drafts the shift handover, on top of facts taken from the recorded readings.
+
+28
+00:02:37,442 --> 00:02:40,530
+Rounds. The cloud prepares the knowledge,
+
+29
+00:02:40,530 --> 00:02:46,192
+the device helps offline, and approved rules decide what is safe.
+

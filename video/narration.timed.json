@@ -1,0 +1,100 @@
+[
+ {
+  "id": "s1",
+  "title": "The problem",
+  "lines": [
+   "Every shift, technicians walk plant rooms and basements to check equipment.",
+   "Down there, the signal is often gone.",
+   "Rounds brings AI to that inspection round, while approved rules keep the final say on safety."
+  ],
+  "durs": [
+   6.270522,
+   3.293152,
+   7.534331
+  ]
+ },
+ {
+  "id": "s2",
+  "title": "Cloud compiles the manual",
+  "lines": [
+   "A supervisor starts with the equipment manual. This one is fictional, made for the demo.",
+   "Firebase AI Logic sends it once to Gemini in the cloud.",
+   "Gemini compiles it into a procedure pack: limits the app can enforce, and one small card per step for the on-device model."
+  ],
+  "durs": [
+   7.214558,
+   5.054649,
+   10.098912
+  ]
+ },
+ {
+  "id": "s3",
+  "title": "Supervisor approves",
+  "lines": [
+   "Every limit must quote the manual word for word, and the app checks each quote in code.",
+   "Here, it flagged a safety line that Gemini reworded, so the supervisor excludes it.",
+   "Nothing reaches technicians until every item is approved."
+  ],
+  "durs": [
+   6.686531,
+   7.198549,
+   4.558277
+  ]
+ },
+ {
+  "id": "s4",
+  "title": "Offline, on-device AI",
+  "lines": [
+   "The technician starts the round, and the approved pack is stored on the device.",
+   "Now the connection drops.",
+   "At the first check, the technician notes a faint rattling near the pump.",
+   "Chrome's built-in Gemini Nano, called through the same Firebase AI Logic SDK, reviews the note on the device, offline."
+  ],
+  "durs": [
+   5.982676,
+   2.446304,
+   5.374558,
+   9.975646
+  ]
+ },
+ {
+  "id": "s5",
+  "title": "Rules flag the reading",
+  "lines": [
+   "Next, an abnormal reading: eighty-two degrees.",
+   "No AI judges this number. A rule compares it with the approved limit, quotes the manual, and shows the escalation rule the supervisor approved.",
+   "It also sees that this check failed on an earlier shift."
+  ],
+  "durs": [
+   4.510295,
+   11.614286,
+   4.174558
+  ]
+ },
+ {
+  "id": "s6",
+  "title": "Cloud follow-up",
+  "lines": [
+   "At the vibration check, the reading is high again, with a squeal near the bearing.",
+   "For a deeper look, the technician sees exactly what would be sent, and agrees. Offline, it waits on the device.",
+   "When the connection returns, the changes sync, and Gemini in the cloud reviews it with the manual section and this check's history."
+  ],
+  "durs": [
+   5.98254,
+   9.262676,
+   9.566349
+  ]
+ },
+ {
+  "id": "s7",
+  "title": "Handover",
+  "lines": [
+   "At the end of the round, the device drafts the shift handover, on top of facts taken from the recorded readings.",
+   "Rounds. The cloud prepares the knowledge, the device helps offline, and approved rules decide what is safe."
+  ],
+  "durs": [
+   8.54254,
+   8.75034
+  ]
+ }
+]

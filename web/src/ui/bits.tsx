@@ -3,8 +3,8 @@ import type { InferenceSourceLabel, Level } from '../domain/types';
 
 export function SourceBadge({ source, ms, model }: { source: InferenceSourceLabel; ms?: number; model?: string }) {
   const label = {
-    ON_DEVICE: 'On-device',
-    IN_CLOUD: 'Cloud',
+    ON_DEVICE: 'On-device AI',
+    IN_CLOUD: 'Cloud AI',
     DETERMINISTIC: 'Rule-based',
     QUEUED: 'Queued for cloud',
     NONE: 'Not run',

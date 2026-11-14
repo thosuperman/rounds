@@ -32,8 +32,28 @@ const ref = (...path: string[]) => doc(db, 'workspaces', ws(), ...(path as [stri
  * Firestore write promises resolve only when the server acknowledges, so offline they would hang.
  * Writes are applied to the local cache immediately; we never block the UI on them.
  */
+// Writes resolve only when the server acknowledges them, so the number of unresolved writes is the
+// real count of changes saved on this device but not yet synced. The top bar shows it.
+let pendingWrites = 0;
+const syncListeners = new Set<(n: number) => void>();
+function emitSync() {
+  for (const l of syncListeners) l(pendingWrites);
+}
+export function onSyncState(cb: (pending: number) => void) {
+  syncListeners.add(cb);
+  cb(pendingWrites);
+  return () => {
+    syncListeners.delete(cb);
+  };
+}
+
 export function fire(p: Promise<unknown>) {
-  p.catch((e) => console.warn("[firestore] write rejected", e));
+  pendingWrites++;
+  emitSync();
+  p.catch((e) => console.warn('[firestore] write rejected', e)).finally(() => {
+    pendingWrites--;
+    emitSync();
+  });
 }
 
 /** Firestore rejects undefined; strip it deeply. */

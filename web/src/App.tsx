@@ -4,7 +4,7 @@ import { startSession, type Session } from './data/workspace';
 import { useDeviceModel, useLive, useOnline } from './hooks';
 import { cloudFallbackAllowed, prepareDeviceModel, setCloudFallbackAllowed } from './ai/hybrid';
 import { drainQueue } from './ai/escalation';
-import { watchEscalations } from './data/repo';
+import { onSyncState, watchEscalations } from './data/repo';
 import type { Escalation } from './domain/types';
 import { Supervisor } from './views/Supervisor';
 import { Field } from './views/Field';
@@ -77,6 +77,7 @@ function TopBar() {
       </div>
       <div className="row gap">
         <span className={`pill ${online ? 'pill-on' : 'pill-off'}`}>{online ? 'Online' : 'Offline'}</span>
+        <SyncPill />
         <button
           className={`pill ${device === 'available' ? 'pill-on' : 'pill-neutral'}`}
           disabled={device !== 'downloadable' && device !== 'downloading'}
@@ -134,5 +135,16 @@ function FallbackToggle() {
     >
       {on ? 'Cloud fallback: on' : 'Cloud fallback: off'}
     </button>
+  );
+}
+
+/** Real Firestore sync state: unacknowledged writes are changes kept on this device. */
+function SyncPill() {
+  const [pending, setPending] = useState(0);
+  useEffect(() => onSyncState(setPending), []);
+  return (
+    <span className={`pill ${pending ? 'pill-neutral' : 'pill-on'}`} title="Changes saved on this device and not yet confirmed by the server">
+      {pending ? `Saved on device · ${pending} to sync` : 'Synced'}
+    </span>
   );
 }

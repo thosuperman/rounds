@@ -1,0 +1,14 @@
+{
+ "s1": {"chip": "Supervisor", "segments": [[0, 19.4]]},
+ "s2": {"chip": "Supervisor · cloud AI", "segments": [[0.5, 18.6], [165.0, 172.1]],
+        "captions": [{"at": 18.1, "len": 4.0, "text": "⏩ Cloud compile took 149 s · wait shortened"}]},
+ "s3": {"chip": "Supervisor · review", "segments": [[1.0, 13.5], [36.3, 45.0]],
+        "captions": [{"at": 12.5, "len": 3.5, "text": "3 more reworded lines excluded the same way"}]},
+ "s4": {"chip": "Technician", "segments": [[1.8, 9.5], [9.5, 20.5, 2.5], [20.5, 27.5], [94.8, 102.9]],
+        "captions": [{"at": 7.7, "len": 4.4, "text": "⏩ 2.5× speed"}, {"at": 19.1, "len": 4.0, "text": "⏩ On-device inference took 69 s · wait shortened"}]},
+ "s5": {"chip": "Technician · offline", "segments": [[5.5, 28.6]]},
+ "s6": {"chip": "Technician · offline → online", "segments": [[4.0, 13.0, 1.6], [13.0, 21.5, 2.0], [21.5, 29.8], [34.5, 40.5], [48.4, 51.9]],
+        "captions": [{"at": 0.0, "len": 9.8, "text": "⏩ 1.6–2× speed"}, {"at": 24.1, "len": 3.4, "text": "⏩ 8 s cloud wait shortened"}]},
+ "s7": {"chip": "Technician → handover", "segments": [[1.5, 15.0, 1.5], [63.0, 73.5]],
+        "captions": [{"at": 0.0, "len": 9.0, "text": "⏩ 1.5× speed"}, {"at": 9.0, "len": 4.0, "text": "⏩ On-device handover took ~48 s · wait shortened"}]}
+}

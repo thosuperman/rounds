@@ -86,7 +86,7 @@ export async function askStep(stepCard: string, question: string, meta: { roundI
 export function factsText(f: HandoverFacts) {
   const lines = [`EQUIPMENT: ${f.equipmentName}`, `SHIFT: ${f.shift}`, 'MEASUREMENTS:'];
   for (const m of f.measurements) {
-    lines.push(`- ${m.title}: ${m.value ?? 'not recorded'} ${m.unit ? UNIT_LABEL[m.unit] : ''} [${m.level}]`);
+    lines.push(m.unit ? `- ${m.title}: ${m.value ?? '–'} ${UNIT_LABEL[m.unit]} [${m.level}]` : `- ${m.title}: checked (visual check, no reading) [${m.level}]`);
   }
   lines.push('OPEN ISSUES:');
   if (!f.openIssues.length) lines.push('- none');
@@ -99,7 +99,7 @@ export function factsText(f: HandoverFacts) {
 
 export async function writeHandoverNarrative(f: HandoverFacts, meta: { roundId: string }) {
   const prompt = `Write a shift handover for the next technician using ONLY these facts. Do not add numbers, causes or events.
-Never call the equipment stable, normal or fine when any reading is [attention] or [alarm].
+Never call the equipment stable, normal or fine when any reading is [attention] or [alarm]. Every check listed under MEASUREMENTS was completed this round; never say a check was skipped or not performed.
 
 ${factsText(f)}
 

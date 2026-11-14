@@ -65,6 +65,10 @@ export function guardNarrative(n: NonNullable<Handover['narrative']>, facts: Han
   if (deviations && /\b(stabl[ey]|normal(ly)?|fine|no (issues|problems|concerns)|all (readings )?(ok|within))\b/.test(prose)) {
     reasons.push('reassuring wording while readings are outside limits');
   }
+  // A round can only be completed with every step recorded, so "not done" claims are always false.
+  if (/\b(not (been )?(performed|done|checked|completed|recorded|carried out|inspected)|skipped|missed|omitted|incomplete)\b/.test(prose)) {
+    reasons.push('claims a check was not done, but every step was recorded');
+  }
   return reasons;
 }
 

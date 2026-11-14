@@ -5,3 +5,12 @@ dist/
 *.local
 .env
 .DS_Store
+# video production: large media stays out of git (final video goes to YouTube)
+video/raw/
+video/build/
+video/audio/
+video/node_modules
+*.webm
+*.wav
+video/*.mp4
+video/overlays/

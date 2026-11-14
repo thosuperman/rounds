@@ -237,6 +237,10 @@ describe('handover prose guard', () => {
     const r = guardNarrative(n, base, 'Bearing temperature 82 alarm 2 shifts');
     expect(r).toContain('reassuring wording while readings are outside limits');
   });
+  it('rejects prose claiming a recorded step was not done', () => {
+    const n = { headline: 'Handover', narrative: 'Bearing temperature is in alarm. Seal and leakage checks were not performed.', actions: [] };
+    expect(guardNarrative(n, base, 'Bearing temperature 82 alarm 2 shifts')).toContain('claims a check was not done, but every step was recorded');
+  });
   it('accepts an action that refers to the issue note', () => {
     const { replaced } = repairActions({ headline: 'h', narrative: 'n', actions: [{ issueId: 'p__s2', action: 'Check the squeal at the drive end' }] }, base);
     expect(replaced).toHaveLength(0);
