@@ -94,7 +94,7 @@ firebase-ai-logic · gemini · gemini-nano · chrome-built-in-ai · cloud-firest
 
 - Video: `<YouTube URL>`
 - Repository: `<GitHub URL>` (Apache-2.0)
-- Live demo: https://rounds-hybrid-bfb0.web.app (custom domain `rounds.hayaix.tech` once DNS is set). On-device AI needs desktop Chrome with built-in AI. In other browsers, readings and rules work, and AI help uses the cloud after you switch on **Cloud fallback** (labelled "Cloud").
+- Live demo: https://rounds.hayaix.tech. On-device AI needs desktop Chrome with built-in AI. In other browsers, readings and rules work, and AI help uses the cloud after you switch on **Cloud fallback** (labelled "Cloud").
 
 ## Notes for judges
 

@@ -10,6 +10,8 @@ Rounds is a web app (installable PWA) for equipment inspection rounds in places 
 
 > ⚠️ The demo uses a **fictional** pump manual (`shared/fixtures/manual-aqualift-cp40.md`, marked DEMO ONLY). Rounds is a hackathon prototype. It is **not certified for industrial safety use**, and AI output never overrides an approved procedure.
 
+**Live demo:** https://rounds.hayaix.tech (desktop Chrome with built-in AI for on-device inference)
+
 ![Architecture](docs/architecture.png)
 
 ## Why hybrid
