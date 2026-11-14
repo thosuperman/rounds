@@ -10,6 +10,7 @@ import { Supervisor } from './views/Supervisor';
 import { Field } from './views/Field';
 import { Handovers } from './views/Handovers';
 import { Ledger } from './views/Ledger';
+import { SiteFooter } from './legal/SiteFooter';
 
 type Tab = 'field' | 'supervisor' | 'handovers' | 'ledger';
 
@@ -23,8 +24,20 @@ export default function App() {
   }, []);
   useEffect(() => localStorage.setItem('rounds.tab', tab), [tab]);
 
-  if (err) return <p className="error pad">Could not sign in: {err}</p>;
-  if (!session) return <p className="pad muted">Starting Rounds…</p>;
+  if (err)
+    return (
+      <>
+        <p className="error pad">Could not sign in: {err}</p>
+        <SiteFooter />
+      </>
+    );
+  if (!session)
+    return (
+      <>
+        <p className="pad muted">Starting Rounds…</p>
+        <SiteFooter />
+      </>
+    );
   return (
     <div className="app">
       <TopBar />
@@ -49,9 +62,7 @@ export default function App() {
         {tab === 'handovers' && <Handovers session={session} />}
         {tab === 'ledger' && <Ledger />}
       </main>
-      <footer className="muted small pad">
-        Rounds · demo with fictional equipment · AI suggestions are advisory; approved limits are enforced by rules · not certified for industrial safety use
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

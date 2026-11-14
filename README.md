@@ -14,6 +14,8 @@ Rounds is a web app (installable PWA) for equipment inspection rounds in places 
 
 **Demo video (2:59):** https://youtu.be/Zj5bSjHjnFY
 
+**Legal:** [Terms of Service](https://rounds.hayaix.tech/terms) · [Privacy Policy](https://rounds.hayaix.tech/privacy) · [Disclaimer](https://rounds.hayaix.tech/disclaimer)
+
 ![Architecture](docs/architecture.png)
 
 ## Why hybrid
